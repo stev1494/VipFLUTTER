@@ -9,7 +9,7 @@ class PreguntasProvider {
   Future<List<Pregunta>> getPreguntas() async {
     // final url = Uri.http(_url, '/api/preguntas/');
 
-    final resp = await http.get('http://0d816943.ngrok.io/api/preguntas/');
+    final resp = await http.get('http://985ba184.ngrok.io/api/preguntas/');
 
     List<Pregunta> preguntas = [];
     if (resp.statusCode == 200) {
