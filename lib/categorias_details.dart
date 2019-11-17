@@ -1,4 +1,5 @@
 import 'package:app_vip/categorias.dart';
+import 'package:app_vip/preguntas_respuestas.dart';
 import 'package:flutter/material.dart';
 import 'package:app_vip/CustomShapeClipper_detail.dart';
 
@@ -38,11 +39,14 @@ class _CategoriaDetalleState extends State<CategoriaDetalle> {
           List<String> lsTemp = new List<String>();
           
           filteredPreguntas.forEach((p) {
+            
             lsTemp.add(p.subCategoria);
+
             print(p.subCategoria);
           });
 
           setState(() {
+            lsTemp = Set.of(lsTemp).toList();
             lsSubCategorias= lsTemp;//Aqui eliminar los duplicados
           });
 
@@ -69,34 +73,41 @@ class _CategoriaDetalleState extends State<CategoriaDetalle> {
     }
 
 return Scaffold(
-  body:          ListView.separated(
+  body:ListView.separated(
                   
       separatorBuilder: (context, index) => Divider(
         color: Colors.black,
       ),
       itemCount: lsSubCategorias.length,
       itemBuilder: (context, index) => Padding(
-        padding: EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(1.0),
         child: ListTile(
           dense: true,
             title: Text(
+              
               lsSubCategorias[index],
               style: TextStyle(
-                fontSize:   20,
+                fontSize:   15,
                 fontWeight:  FontWeight.bold
                     ,
               ),
             ),
-            subtitle: Text('Respuesta'),
-            leading: 
-                 Icon(Icons.question_answer)
-                ,
+            // subtitle: Text('Respuesta'),
+            // leading: 
+            //      Icon(Icons.question_answer)
+            //     ,
             trailing: 
                  Icon(Icons.arrow_right),
-            onTap: () {
-             print('Aquì funciòn para mandar a llamar las preguntas de '+lsSubCategorias[index]);
-             fnPreguntasCategoria();
-                         }),
+              onTap: () {
+                
+                 Navigator.push(context, new MaterialPageRoute(
+                  builder: (context) =>
+                    new PreguntasRespuestasPage(ls:lsSubCategorias[index]))
+                  );
+                print('Aquì funciòn para mandar a llamar las preguntas de '+lsSubCategorias[index]);
+                fnPreguntasCategoria();
+              }
+          ),
                    ),
                  ), 
                
