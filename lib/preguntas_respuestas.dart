@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'CustomShapeClipper_detail.dart';
 import 'models/pregunta_model.dart';
@@ -53,7 +54,7 @@ class _PreguntasRespuestasPageState extends State<PreguntasRespuestasPage> {
             lsTemp = Set.of(lsTemp).toList();
             lsTemp2 = Set.of(lsTemp2).toList();
             
-            // lsSubCategorias2 =lsTemp2;
+            lsSubCategorias2 =lsTemp2;
             lsSubCategorias= lsTemp;//Aqui eliminar los duplicados
           });
 
@@ -70,98 +71,122 @@ class _PreguntasRespuestasPageState extends State<PreguntasRespuestasPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-          body: Stack(
-            children: <Widget>[
-                ClipPath(
-                  clipper: CustomShapeClipperDetail(),
-                        child: Container(
-                        height: 150.0, color: Color.fromRGBO(232, 232, 232, 1)),
-                ),
+    List<String> lsTemp2=this.lsSubCategorias2;
+        return Scaffold(
 
-                ListView.separated(
+              body: Stack(
+                children: <Widget>[
+                    ClipPath(
+                      clipper: CustomShapeClipperDetail(),
+                            child: Row(
+                                  children:<Widget>[
+
+                                    Container(
+                                      child:  FlatButton(
+                                                  color: Color.fromRGBO(232, 232, 232, 1),
+                                                  onPressed: () => Navigator.pop(context, false),
+                                                  child: Icon(
+                                                    Icons.arrow_back_ios,
+                                                    color: Color.fromRGBO(0, 0, 0, 0.4),
+                                                    size: 35.0,
+                                      ),
+                                    ),
+                                      
+                                      height: 150.0, color: Color.fromRGBO(232, 232, 232, 1)
+                                      ),
+                                      Flexible(
+                                          child: Padding(
+                                          padding:EdgeInsets.only(left:25.0, right: 5),
+                                          child: Text(widget.ls.toUpperCase(),
+                                          //  overflow: TextOverflow.ellipsis,
+                                          //  maxLines: 2,
+
+                                            style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromRGBO(0, 36, 65, 1),
+                                            ),
                                           
-                    separatorBuilder: (context, index) => Divider(
-                        color: Colors.black,
+                                          ),
+                                        ),
+                                      ),
+                                   
+                                  ]
+                            )
                     ),
-                    itemCount: filteredPreguntas.length,
-                    itemBuilder: (context, index) => Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: ListTile(
-                       dense: true,
-                        title: Text(
-                          lsSubCategorias[index],
-                          style: TextStyle(
-                            fontSize:   20,
-                            fontWeight:  FontWeight.bold
-                                            ,
-                          ),
-                        ),
-                       subtitle: Text(lsTemp2[index]),
-                       leading:  Icon(Icons.question_answer),
-                       trailing: Icon(Icons.arrow_right),
-                        onTap: () {
-                                      print('presionado');
-                        }
-                     ),
-                     ),
-                ),
-                            
 
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(8, 150, 8, 1),
+                      child: ListView.builder(
+                        shrinkWrap: true,
+                        itemCount: filteredPreguntas.length,
+                        itemBuilder: (context , index){
+                          return Dismissible(
+                            key:ValueKey(filteredPreguntas[index]),
+                            onDismissed: (direction){
+                                  setState(() {
+                                    filteredPreguntas.removeAt(index);
+                                  });
+                                },
+                                background: Container(
+                                  color:Color.fromRGBO(39, 84, 186, 1),
+                                ),
+                                                      child: Card(
+                                      elevation: 8.0,
+                                      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(color: Colors.white),
+                                        child: ListTile(
+                            contentPadding: EdgeInsets.symmetric(
+                              horizontal: 20.0,
+                              vertical: 10.0
+                            ),
+                            leading: Container(
+                              child: Container(
+                                width: 40,
+                                padding: EdgeInsets.only(right: 12.0),
+                                decoration: BoxDecoration(
+                                  border: Border(
+                                    right: BorderSide(width: 1.0, color: Colors.grey[300])
+                                  )
+                                ),
+                                child: Icon(Icons.art_track),
+                                //alignment: Alignment.centerLeft,
+                              ),
+                            ),
 
-                // SingleChildScrollView(
-                //     child: Column(
-                //            children: <Widget>[
-                //              Container(
-                //                child: Padding(
-                //                  padding:
-                //                      EdgeInsets.symmetric(horizontal: 5.0, vertical: 55.0),
-                //                  child: Row(
-                //                    children: <Widget>[
-                //                      //Padding(padding:EdgeInsets.symmetric(horizontal: 7.0 , vertical: 14.0) ,),
-                //                      FlatButton(
-                //                        color: Color.fromRGBO(232, 232, 232, 1),
-                //                        onPressed: () => Navigator.pop(context, false),
-                //                        child: Icon(
-                //                          Icons.arrow_back_ios,
-                //                          color: Color.fromRGBO(0, 0, 0, 0.4),
-                //                          size: 35.0,
-                //                        ),
-                //                      ),
-                //                      Align(
-                //                        alignment: Alignment.topLeft,
-                //                        child: Padding(
-                //                          padding: const EdgeInsets.all(1.0),
-                //                          child: Column(children: <Widget>[
-                //                            Padding(
-                //                              padding: const EdgeInsets.only(left: 18.0),
-                //                              child: Align(
-                //                                alignment: Alignment.centerLeft,
-                //                                child: Text(
-                //                                  widget.ls,///Se reemplaza por el valor existente en el inicio del build.
-                //                                  style: TextStyle(
-                //                                    fontSize: 25.0,
-                //                                    fontWeight: FontWeight.bold,
-                //                                    color: Color.fromRGBO(0, 36, 65, 1),
-                //                                  ),
-                //                                ),
-                //                              ),
-                //                            ),
-                //                          ]),
-                //                        ),
-                //                      ),
-                //                    ],
-                //                  ),
-                //                ),
-                //              ),
-                            
-            
-                //              //Padding(padding: EdgeInsets.symmetric(vertical: 400.0 )),
-                //            ],
-                //    ),
-                // ),
-            ],
-          ),
-    );
-  }
+                            title: Text(
+                              lsSubCategorias[index],
+                              style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                            ),
+                          
+                            subtitle: Text(lsTemp2[index]),
+
+                            trailing:
+                              GestureDetector(
+                                
+                                child: Icon(Icons.content_copy, color: Colors.grey, size: 20.0),
+                                onTap: () {
+                                  Clipboard.setData(new ClipboardData(text: lsSubCategorias[index]+lsTemp2[index]));
+                                          },
+                                          ),
+                                      onTap: () {
+                                        //goToUnitMapScreen(context, unit);
+                                      },
+                                    ),
+                                      ),
+                                    ),
+                                              );
+                                
+                                            },
+                        
+                      ),
+                    ),
+
+                       ],
+                     ),
+               );
+             }
 }
+           
+ 

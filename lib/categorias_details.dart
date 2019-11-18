@@ -20,6 +20,7 @@ class _CategoriaDetalleState extends State<CategoriaDetalle> {
 
   void initState() {
     super.initState();
+    
     lsSubCategorias.add("...");
   }
 
