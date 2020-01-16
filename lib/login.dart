@@ -1,7 +1,10 @@
 
+import 'package:app_vip/providers/email_provider.dart';
 import 'package:flutter/material.dart';
 
 import 'CustomShapeClipper_detail.dart';
+import 'models/email_model.dart';
+
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key}) : super(key: key);
@@ -10,12 +13,21 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+
+  final mensajecontroller = new TextEditingController();
+  String correo;
+  List<Email> correos;
+
   
  
 
 
   @override
   Widget build(BuildContext context) {
+    correo = ModalRoute.of(context).settings.arguments;
+ 
+
 
 
        return Scaffold(
@@ -98,7 +110,7 @@ class _LoginPageState extends State<LoginPage> {
                   padding: const EdgeInsets.fromLTRB(25, 15, 25, 5),
                   
                   child: TextField(
-
+                      controller: mensajecontroller,
                       maxLines: 7,
                       decoration: InputDecoration(
                        hintText: 'Escribe aquí la pregunta o duda legal...',  
@@ -115,7 +127,11 @@ class _LoginPageState extends State<LoginPage> {
                         child: RaisedButton(
                           textColor: Colors.white,
                           color: Color.fromRGBO(39, 84, 186, 1),
-                          onPressed: (){},
+                          onPressed: (){
+                              envio();
+                                Navigator.pushNamed(context, '/');
+                            
+                          },
                           child: const Text(
                               'ENVIAR',
                               style: TextStyle(fontSize: 20)
@@ -138,5 +154,8 @@ class _LoginPageState extends State<LoginPage> {
     
   }
 
-
+  void envio() async {
+      correos= await EmailProvider().getEmails(correo, mensajecontroller.text);
+      
+  }
 }

@@ -9,6 +9,10 @@ class SignPage extends StatefulWidget {
 }
 
 class _SignPageState extends State<SignPage> {
+
+
+ final emailcontroller = new TextEditingController();
+
  
 @override
   Widget build(BuildContext context) {
@@ -99,6 +103,7 @@ class _SignPageState extends State<SignPage> {
                   padding: const EdgeInsets.fromLTRB(25, 15, 25, 5),
                   
                   child: TextField(
+                      controller: emailcontroller,
 
                       // maxLines: 7,
                       decoration: InputDecoration(
@@ -122,7 +127,7 @@ class _SignPageState extends State<SignPage> {
                             textColor: Colors.white,
                             color: Color.fromRGBO(39, 84, 186, 1),
                             onPressed: (){
-                              Navigator.pushNamed(context, '/login');
+                              Navigator.pushNamed(context, '/login', arguments: emailcontroller.text);
                             },
                             child:Icon(Icons.chevron_right, size: 30,)
                           ),

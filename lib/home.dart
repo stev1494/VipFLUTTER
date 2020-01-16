@@ -168,33 +168,33 @@ class _HomePageState extends State<HomePage> {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           children: <Widget>[
-                          listaH(context , 'icon-aduanero',0),
+                          listaH(context , 'icon-aduanero','Aduanero'),
                           SizedBox(width: 10.0,),
-                          listaH( context, 'icon-ambiental',1),
+                          listaH( context, 'icon-ambiental','Ambiental'),
                           SizedBox(width: 10.0,),
-                          listaH( context, 'icon-civil',2),
+                          listaH( context, 'icon-civil','Civil'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-comercio',3),
+                            listaH( context, 'icon-comercio','Comercio'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-constitucional',4),
+                            listaH( context, 'icon-constitucional','Constitucional'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-empresarial',5),
+                            listaH( context, 'icon-empresarial','Empresarial'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-inquilinato',6),
+                            listaH( context, 'icon-inquilinato','Inquilinato'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-laboral',7),
+                            listaH( context, 'icon-laboral','Laboral'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-ninez',8),
+                            listaH( context, 'icon-ninez','Niñez'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-penal',9),
+                            listaH( context, 'icon-penal','Penal'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-propiedad-intelectual',10),
+                            listaH( context, 'icon-propiedad-intelectual','Propiedad Intelectual'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-sede-administrativa',11),
+                            listaH( context, 'icon-sede-administrativa','Sede Administrativa'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-transito',12),
+                            listaH( context, 'icon-transito','Transito'),
                             SizedBox(width: 10.0,),
-                            listaH( context, 'icon-tributario',13),
+                            listaH( context, 'icon-tributario','Tributario'),
                             SizedBox(width: 10.0,),
 
                                     ],
@@ -215,7 +215,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget listaH( BuildContext context , String ruta , int index){
+  Widget listaH( BuildContext context , String ruta , String index){
 
     return  Column(
 

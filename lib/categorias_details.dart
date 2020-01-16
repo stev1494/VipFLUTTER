@@ -21,14 +21,14 @@ class _CategoriaDetalleState extends State<CategoriaDetalle> {
   void initState() {
     super.initState();
     
-    lsSubCategorias.add("...");
+    // lsSubCategorias.add("...");
   }
 
   @override
   void didChangeDependencies() async {
      nombreCategoria = ModalRoute.of(context).settings.arguments;
     if (_isInit) {
-      preguntas = await PreguntasProvider().getPreguntas();
+       preguntas= await PreguntasProvider().getPreguntas();
       if (preguntas.length > 0) { ///Permite ejecutar solo cuando tiene preguntas del provider
         filteredPreguntas = preguntas
             .where((pregunta) =>
@@ -74,45 +74,99 @@ class _CategoriaDetalleState extends State<CategoriaDetalle> {
     }
 
 return Scaffold(
-  body:ListView.separated(
-                  
-      separatorBuilder: (context, index) => Divider(
-        color: Colors.black,
-      ),
-      itemCount: lsSubCategorias.length,
-      itemBuilder: (context, index) => Padding(
-        padding: EdgeInsets.all(1.0),
-        child: ListTile(
-          dense: true,
-            title: Text(
-              
-              lsSubCategorias[index],
-              style: TextStyle(
-                fontSize:   15,
-                fontWeight:  FontWeight.bold
-                    ,
-              ),
-            ),
-            // subtitle: Text('Respuesta'),
-            // leading: 
-            //      Icon(Icons.question_answer)
-            //     ,
-            trailing: 
-                 Icon(Icons.arrow_right),
-              onTap: () {
+  body:Stack(children: <Widget>[
+
+
+    ClipPath(
+                      clipper: CustomShapeClipperDetail(),
+                            child: Row(
+                                  children:<Widget>[
+
+                                    Container(
+                                      child:  FlatButton(
+                                                  color: Color.fromRGBO(232, 232, 232, 1),
+                                                  onPressed: () => Navigator.pop(context, false),
+                                                  child: Icon(
+                                                    Icons.arrow_back_ios,
+                                                    color: Color.fromRGBO(0, 0, 0, 0.4),
+                                                    size: 35.0,
+                                      ),
+                                    ),
+                                      
+                                      height: 150.0, color: Color.fromRGBO(232, 232, 232, 1)
+                                      ),
+                                      Flexible(
+                                          child: Padding(
+                                          padding:EdgeInsets.only(left:25.0, right: 5),
+                                          child: Text(nombreCategoria.toUpperCase(),
+                                          //  overflow: TextOverflow.ellipsis,
+                                          //  maxLines: 2,
+
+                                            style: TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: Color.fromRGBO(0, 36, 65, 1),
+                                            ),
+                                          
+                                          ),
+                                        ),
+                                      ),
+                                   
+                                  ]
+                            )
+                    ),
+
+
+
+    Padding(
+      padding: const EdgeInsets.fromLTRB(8, 150, 8, 1),
+      child: ListView.builder(
+                    
+        shrinkWrap: true,
+        itemCount: lsSubCategorias.length,
+        itemBuilder: (context, index) => Padding(
+          padding: EdgeInsets.all(1.0),
+          child: ListTile(
+            dense: true,
+              title: Text(
                 
-                 Navigator.push(context, new MaterialPageRoute(
-                  builder: (context) =>
-                    new PreguntasRespuestasPage(ls:lsSubCategorias[index]))
-                  );
-                print('Aquì funciòn para mandar a llamar las preguntas de '+lsSubCategorias[index]);
-                fnPreguntasCategoria();
-              }
-          ),
+                lsSubCategorias[index].toUpperCase(),
+                style: TextStyle(
+                  fontSize:   15,
+                  fontWeight:  FontWeight.bold
+                      ,
+                ),
+              ),
+              // subtitle: Text('Respuesta'),
+              // leading: 
+              //      Icon(Icons.question_answer)
+              //     ,
+              trailing: 
+                   Icon(Icons.arrow_right),
+                onTap: () {
+                  
+                   Navigator.push(context, new MaterialPageRoute(
+                    builder: (context) =>
+                      new PreguntasRespuestasPage(ls:lsSubCategorias[index]))
+                    );
+                  print('Aquì funciòn para mandar a llamar las preguntas de '+lsSubCategorias[index]);
+                  fnPreguntasCategoria();
+                }
+            ),
+                     ),
                    ),
-                 ), 
+    ), 
                
-             );
+
+
+
+
+  ],)
+  
+  
+  
+  
+  );
              
              //     return Scaffold(
              //       body: Stack(

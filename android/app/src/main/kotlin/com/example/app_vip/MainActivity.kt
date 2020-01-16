@@ -1,4 +1,4 @@
-package com.example.app_vip
+package com.viplecon.app_vip
 
 import android.os.Bundle
 

@@ -231,11 +231,10 @@ class _FleetScreenState extends State<FleetScreen> {
 
   Future <List<Pregunta>> getPreguntas() async {
     print('Entro a request!!!!!');
-    String _url  = 'http://b96a0821.ngrok.io';
 
     // final url = Uri.http(_url, '/api/preguntas/');
 
-    final resp =  await http.get( 'http://985ba184.ngrok.io/api/preguntas/');
+    final resp =  await http.get( 'http://159.203.118.11:5000/api/preguntas/');
 
 
     if (resp.statusCode == 200) {
